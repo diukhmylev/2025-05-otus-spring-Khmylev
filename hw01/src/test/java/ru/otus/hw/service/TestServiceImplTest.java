@@ -1,27 +1,33 @@
 package ru.otus.hw.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.hw.dao.QuestionDao;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static  org.mockito.Mockito.atLeastOnce;
+import static  org.mockito.Mockito.anyString;
+import static  org.mockito.Mockito.any;
 
+@ExtendWith(MockitoExtension.class)
 class TestServiceImplTest {
 
+    @Mock
     private IOService ioService;
-    private QuestionDao questionDao;
-    private TestServiceImpl testService;
 
-    @BeforeEach
-    void setUp() {
-        ioService = mock(IOService.class);
-        questionDao = mock(QuestionDao.class);
-        testService = new TestServiceImpl(ioService, questionDao);
-    }
+    @Mock
+    private QuestionDao questionDao;
+
+    @InjectMocks
+    private TestServiceImpl testService;
 
     @Test
     void shouldExecuteTestWithCorrectAnswer() {
