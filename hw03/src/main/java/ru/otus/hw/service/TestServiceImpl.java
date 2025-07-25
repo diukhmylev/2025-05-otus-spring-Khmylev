@@ -31,26 +31,24 @@ public class TestServiceImpl implements TestService {
                 ioService.printFormattedLine("%d. %s", i + 1, answers.get(i).text());
             }
 
-            ioService.printLineLocalized("TestService.enter.answer");
+            boolean validInput = false;
+            while (!validInput) {
+                ioService.printLineLocalized("TestService.enter.answer");
+                try {
+                    int userChoice = Integer.parseInt(ioService.readString());
 
-            int userChoice = -1;
-            try {
-                userChoice = Integer.parseInt(ioService.readString());
-            } catch (NumberFormatException e) {
-                ioService.printLineLocalized("TestService.invalid.input");
-                continue;
+                    if (userChoice >= 1 && userChoice <= answers.size()) {
+                        Answer selectedAnswer = answers.get(userChoice - 1);
+                        boolean isAnswerValid = selectedAnswer.isCorrect();
+                        testResult.applyAnswer(question, isAnswerValid);
+                        validInput = true;
+                    } else {
+                        ioService.printLineLocalized("TestService.invalid.option");
+                    }
+                } catch (NumberFormatException e) {
+                    ioService.printLineLocalized("TestService.invalid.input");
+                }
             }
-
-            boolean isAnswerValid = false;
-
-            if (userChoice >= 1 && userChoice <= answers.size()) {
-                Answer selectedAnswer = answers.get(userChoice - 1);
-                isAnswerValid = selectedAnswer.isCorrect();
-            } else {
-                ioService.printLineLocalized("TestService.invalid.option");
-            }
-
-            testResult.applyAnswer(question, isAnswerValid);
         }
 
         return testResult;
