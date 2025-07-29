@@ -15,8 +15,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    CommandLineRunner runner(TestRunnerService testRunnerService) {
-        return args -> testRunnerService.run();
-    }
 }
