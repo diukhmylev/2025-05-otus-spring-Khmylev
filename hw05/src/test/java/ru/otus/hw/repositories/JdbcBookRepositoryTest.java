@@ -8,14 +8,17 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import ru.otus.hw.exceptions.EntityNotFoundException;
 import ru.otus.hw.models.Author;
 import ru.otus.hw.models.Book;
 import ru.otus.hw.models.Genre;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Репозиторий на основе Jdbc для работы с книгами ")
 @JdbcTest
@@ -24,6 +27,9 @@ class JdbcBookRepositoryTest {
 
     @Autowired
     private JdbcBookRepository repositoryJdbc;
+
+    @Autowired
+    private JdbcGenreRepository genreRepository;
 
     private List<Author> dbAuthors;
 
@@ -102,6 +108,51 @@ class JdbcBookRepositoryTest {
         assertThat(repositoryJdbc.findById(1L)).isPresent();
         repositoryJdbc.deleteById(1L);
         assertThat(repositoryJdbc.findById(1L)).isEmpty();
+    }
+
+    @DisplayName("должен выбрасывать EntityNotFoundException при обновлении несуществующей книги")
+    @Test
+    void shouldThrowExceptionWhenUpdatingNonExistentBook() {
+        var nonExistingBook = new Book(999L, "NonExisting", dbAuthors.get(0), List.of(dbGenres.get(0)));
+
+        assertThatThrownBy(() -> repositoryJdbc.save(nonExistingBook))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("not found");
+    }
+
+    @DisplayName("должен выбрасывать исключение при удалении несуществующей книги")
+    @Test
+    void shouldThrowExceptionWhenDeletingNonExistentBook() {
+        assertThatThrownBy(() -> repositoryJdbc.deleteById(999L))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("not found");
+    }
+
+    @DisplayName("должен загружать список всех жанров")
+    @Test
+    void shouldReturnAllGenres() {
+        var genres = genreRepository.findAll();
+        assertThat(genres).containsExactlyElementsOf(dbGenres);
+    }
+
+    @DisplayName("должен загружать жанры по id")
+    @Test
+    void shouldReturnGenresByIds() {
+        var ids = Set.of(1L, 3L, 5L);
+        var expectedGenres = dbGenres.stream()
+                .filter(g -> ids.contains(g.getId()))
+                .toList();
+
+        var genres = genreRepository.findAllByIds(ids);
+
+        assertThat(genres).containsExactlyInAnyOrderElementsOf(expectedGenres);
+    }
+
+    @DisplayName("должен возвращать пустой список, если жанры не найдены")
+    @Test
+    void shouldReturnEmptyListIfNoGenresFound() {
+        var genres = genreRepository.findAllByIds(Set.of(999L, 1000L));
+        assertThat(genres).isEmpty();
     }
 
     private static List<Author> getDbAuthors() {
