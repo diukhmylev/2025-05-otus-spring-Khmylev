@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public List<Comment> findAllByBookId(Long bookId) {
+    public List<Comment> findByBookId(Long bookId) {
         return commentRepository.findAllByBookId(bookId);
     }
 }

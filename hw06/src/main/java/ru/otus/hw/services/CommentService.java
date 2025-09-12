@@ -8,5 +8,5 @@ public interface CommentService {
     Comment save(Comment comment);
     void deleteById(Long id);
     Optional<Comment> findById(Long id);
-    List<Comment> findAllByBookId(Long bookId);
+    List<Comment> findByBookId(Long bookId);
 }

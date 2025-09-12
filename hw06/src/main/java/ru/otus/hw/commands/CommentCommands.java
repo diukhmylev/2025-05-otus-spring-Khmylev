@@ -9,6 +9,7 @@ import ru.otus.hw.models.Comment;
 import ru.otus.hw.services.CommentService;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @ShellComponent
@@ -45,5 +46,19 @@ public class CommentCommands {
     @ShellMethod(value = "Delete comment by id", key = {"cdel", "delete-comment"})
     public void deleteComment(long id) {
         commentService.deleteById(id);
+    }
+
+    // bcom 1
+    @ShellMethod(value = "Get comments by book id", key = "bcom")
+    public String getCommentsByBookId(long bookId) {
+        var comments = commentService.findByBookId(bookId);
+
+        if (comments.isEmpty()) {
+            return "No comments found for book id: " + bookId;
+        }
+
+        return comments.stream()
+                .map(c -> String.format("Id: %d, text: %s", c.getId(), c.getText()))
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 }

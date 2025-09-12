@@ -40,11 +40,11 @@ public class CommentRepositoryJpa implements CommentRepository {
 
     @Override
     public List<Comment> findAllByBookId(Long bookId) {
-        TypedQuery<Comment> query = em.createQuery(
-                "select c from Comment c where c.book.id = :bookId",
-                Comment.class
-        );
-        query.setParameter("bookId", bookId);
-        return query.getResultList();
+        return em.createQuery(
+                        "select c from Comment c where c.book.id = :bookId",
+                        Comment.class
+                )
+                .setParameter("bookId", bookId)
+                .getResultList();
     }
 }

@@ -69,5 +69,30 @@ class CommentRepositoryJpaTest extends AbstractRepositoryTestData{
         commentRepository.deleteById(comment.getId());
         assertThat(commentRepository.findById(comment.getId())).isEmpty();
     }
+
+    @Test
+    @DisplayName("должен получать все комментарии по id книги")
+    void shouldReturnCommentsByBookId() {
+        var book = dbBooks.get(0);
+
+        var actualComments = commentRepository.findAllByBookId(book.getId());
+
+        assertThat(actualComments).isNotEmpty();
+        assertThat(actualComments)
+                .allMatch(c -> c.getBook().getId().equals(book.getId()));
+
+        var expectedTexts = dbComments.stream()
+                .filter(c -> c.getBook().getId().equals(book.getId()))
+                .map(Comment::getText)
+                .toList();
+
+        var actualTexts = actualComments.stream()
+                .map(Comment::getText)
+                .toList();
+
+        assertThat(actualTexts)
+                .containsExactlyInAnyOrderElementsOf(expectedTexts);
+    }
+
 }
 
