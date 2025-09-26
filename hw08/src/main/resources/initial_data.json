@@ -1,0 +1,24 @@
+{
+  "authors": [
+    { "id": "author_1", "fullName": "Author 1" },
+    { "id": "author_2", "fullName": "Author 2" },
+    { "id": "author_3", "fullName": "Author 3" }
+  ],
+  "genres": [
+    { "id": "genre_1", "name": "Genre 1" },
+    { "id": "genre_2", "name": "Genre 2" },
+    { "id": "genre_3", "name": "Genre 3" }
+  ],
+  "books": [
+    { "id": "book_1", "title": "Book Title 1", "authorId": "author_1", "genreIds": ["genre_1", "genre_2"] },
+    { "id": "book_2", "title": "Book Title 2", "authorId": "author_2", "genreIds": ["genre_2", "genre_3"] },
+    { "id": "book_3", "title": "Book Title 3", "authorId": "author_3", "genreIds": ["genre_1", "genre_3"] }
+  ],
+  "comments": [
+    { "id": "comment_1", "text": "Comment 1 for Book 1", "bookId": "book_1" },
+    { "id": "comment_2", "text": "Comment 2 for Book 1", "bookId": "book_1" },
+    { "id": "comment_3", "text": "Comment 1 for Book 2", "bookId": "book_2" },
+    { "id": "comment_4", "text": "Comment 1 for Book 3", "bookId": "book_3" },
+    { "id": "comment_5", "text": "Comment 2 for Book 3", "bookId": "book_3" }
+  ]
+}
