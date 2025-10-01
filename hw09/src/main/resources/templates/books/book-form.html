@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${bookDto.id} != null ? 'Edit Book' : 'New Book'">Book Form</title>
+    <link th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container mt-4">
+    <h1 th:text="${bookDto.id} != null ? 'Edit Book' : 'New Book'">Book Form</h1>
+
+    <form th:action="@{/}" th:object="${bookDto}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" th:field="*{title}" class="form-control" id="title" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <select th:field="*{authorId}" class="form-select" id="author" required>
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.fullName}"
+                        th:selected="${author.id == bookDto.authorId}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="genres" class="form-label">Genres</label>
+            <select th:field="*{genreIds}" class="form-select" id="genres" multiple>
+                <option th:each="genre : ${genres}"
+                        th:value="${genre.id}"
+                        th:text="${genre.name}"
+                        th:selected="${bookDto.genreIds.contains(genre.id)}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a class="btn btn-secondary" th:href="@{/}">Cancel</a>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
