@@ -15,6 +15,7 @@ import ru.otus.hw.services.CommentService;
 import ru.otus.hw.services.GenreService;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
@@ -33,7 +34,8 @@ public class DataInitializerCommand {
     @ShellMethod(value = "Initialize database from JSON", key = "init-db")
     public String initializeDatabase() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        InputStream is = new FileInputStream("src/main/resources/initial_data.json");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("initial_data.json");
+        if (is == null) throw new FileNotFoundException("Resource initial_data.json not found");
         JsonNode root = mapper.readTree(is);
 
         root.get("authors").forEach(a -> {
