@@ -1,0 +1,16 @@
+package ru.otus.hw.services;
+
+import ru.otus.hw.dto.AuthorDto;
+import ru.otus.hw.models.Author;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface AuthorService {
+    List<AuthorDto> findAll();
+    Optional<AuthorDto> findById(String id);
+    AuthorDto save(AuthorDto dto);
+    void deleteById(String id);
+}
+
+
