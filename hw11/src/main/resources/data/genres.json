@@ -1,0 +1,11 @@
+[
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b711" },
+    "name": "Science Fiction"
+  },
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b712" },
+    "name": "Fantasy"
+  }
+]
+
