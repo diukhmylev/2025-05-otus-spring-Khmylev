@@ -1,0 +1,11 @@
+[
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b701" },
+    "fullName": "Author One"
+  },
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b702" },
+    "fullName": "Author Two"
+  }
+]
+

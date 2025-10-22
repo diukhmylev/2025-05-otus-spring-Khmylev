@@ -1,0 +1,25 @@
+[
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b721" },
+    "title": "Book 1",
+    "authorId": { "$oid": "652a591c1a6276c1c7f1b701" },
+    "genreIds": [
+      { "$oid": "652a591c1a6276c1c7f1b711" }
+    ],
+    "commentIds": [
+      { "$oid": "652a591c1a6276c1c7f1b731" }
+    ]
+  },
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b722" },
+    "title": "Book 2",
+    "authorId": { "$oid": "652a591c1a6276c1c7f1b702" },
+    "genreIds": [
+      { "$oid": "652a591c1a6276c1c7f1b711" },
+      { "$oid": "652a591c1a6276c1c7f1b712" }
+    ],
+    "commentIds": [
+      { "$oid": "652a591c1a6276c1c7f1b732" }
+    ]
+  }
+]

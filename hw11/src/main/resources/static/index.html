@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root { --gap: 12px; --pad: 10px; --border: 1px solid #d0d7de; }
+        body { font-family: Arial, sans-serif; margin: 20px; color: #24292f; }
+        h2 { margin: 24px 0 12px; font-size: 20px; }
+        section { margin-bottom: 36px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: var(--gap); }
+        th, td { border: var(--border); padding: 6px 8px; vertical-align: top; }
+        th { background: #f6f8fa; text-align: left; font-weight: 600; }
+        form { display: flex; flex-wrap: wrap; gap: var(--gap); align-items: center; }
+        input[type="text"], select { padding: 6px 8px; border: var(--border); border-radius: 6px; min-width: 220px; }
+        select[multiple] { min-width: 260px; min-height: 90px; }
+        button { padding: 6px 12px; border: var(--border); border-radius: 6px; background: #0969da; color: #fff; cursor: pointer; }
+        button:hover { background: #0757b3; }
+        .hint { font-size: 12px; color: #57606a; margin-top: -6px; }
+        .block { display: block; width: 100%; }
+        /* Modal */
+        #editBookModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); align-items:center; justify-content:center; }
+        #editBookModal .modal-card { background:#fff; padding:16px; border-radius:8px; min-width:360px; max-width:90%; box-shadow:0 10px 30px rgba(0,0,0,.2); }
+        #editBookModal h3 { margin: 0 0 12px; }
+        #editBookModal form { display:block; }
+        #editBookModal .row { margin-bottom: 10px; }
+        #editBookModal label { display:block; margin-bottom:6px; }
+        #editBookModal input[type="text"], #editBookModal select { width: 100%; }
+        #editBookModal .actions { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+        #editBookModal .btn-gray { background:#6b7280; }
+    </style>
+</head>
+<body>
+
+<section>
+    <h2>Books</h2>
+    <table id="bookTable">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genres</th>
+            <th>Comments</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <form id="bookForm">
+        <input type="text" id="bookTitle" placeholder="Title" required>
+        <select id="bookAuthor" required></select>
+        <select id="bookGenre" multiple required></select>
+        <button type="submit">Add book</button>
+        <span class="hint block">Tip: hold Ctrl (Windows/Linux) or ⌘ Command (macOS) to select multiple genres.</span>
+    </form>
+</section>
+
+<section>
+    <h2>Authors</h2>
+    <table id="authorTable">
+        <thead>
+        <tr>
+            <th>Full name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <form id="authorForm">
+        <input type="text" id="authorName" placeholder="Full name" required>
+        <button type="submit">Add author</button>
+    </form>
+</section>
+
+<section>
+    <h2>Genres</h2>
+    <table id="genreTable">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <form id="genreForm">
+        <input type="text" id="genreName" placeholder="Genre name" required>
+        <button type="submit">Add genre</button>
+    </form>
+</section>
+
+<section>
+    <h2>Comments</h2>
+    <table id="commentTable">
+        <thead>
+        <tr>
+            <th>Book</th>
+            <th>Comment</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <form id="commentForm">
+        <select id="commentBook" required></select>
+        <input type="text" id="commentText" placeholder="Comment text" required>
+        <button type="submit">Add comment</button>
+    </form>
+</section>
+
+<div id="editBookModal">
+    <div class="modal-card">
+        <h3>Edit book</h3>
+        <form id="editBookForm">
+            <input type="hidden" id="editBookId">
+            <div class="row">
+                <label for="editBookTitle">Title</label>
+                <input type="text" id="editBookTitle" required>
+            </div>
+            <div class="row">
+                <label for="editBookAuthor">Author</label>
+                <select id="editBookAuthor" required></select>
+            </div>
+            <div class="row">
+                <label for="editBookGenres">Genres</label>
+                <select id="editBookGenres" multiple size="6" required></select>
+                <div class="hint">Hold Ctrl (Windows/Linux) or ⌘ Command (macOS) to select multiple genres.</div>
+            </div>
+            <div class="actions">
+                <button type="button" id="cancelEditBookBtn" class="btn-gray">Cancel</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

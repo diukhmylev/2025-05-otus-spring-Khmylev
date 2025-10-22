@@ -1,0 +1,15 @@
+[
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b731" },
+    "bookId": { "$oid": "652a591c1a6276c1c7f1b721" },
+    "text": "Very good!",
+    "created": "2023-10-09T14:12:05Z"
+  },
+  {
+    "_id": { "$oid": "652a591c1a6276c1c7f1b732" },
+    "bookId": { "$oid": "652a591c1a6276c1c7f1b722" },
+    "text": "Interesting.",
+    "created": "2023-10-10T09:23:15Z"
+  }
+]
+
