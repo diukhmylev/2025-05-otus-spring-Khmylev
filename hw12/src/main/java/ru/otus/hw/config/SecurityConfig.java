@@ -26,11 +26,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**").permitAll() // статика доступна всем
+                        .requestMatchers("/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        // .loginPage("/login")   // эту строку НЕ писать!
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());
