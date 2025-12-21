@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/appdb
+    username: appuser
+    password: apppass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  sql:
+    init:
+      mode: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  file:
+    name:
+  level:
+    root: INFO
